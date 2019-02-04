@@ -9,7 +9,7 @@ namespace midtermBookStorePOS
 	class Checkout
 	{
 		public List<Book> Cart = new List<Book>();
-		public Menu Item { get; set; }
+		
         public int Quantity { get; set; }
         private readonly double taxRate = 0.06;
 		public double GrandTotal { get; set; }
