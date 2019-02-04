@@ -13,26 +13,30 @@ namespace midtermBookStorePOS
         public int Quantity { get; set; }
         private readonly double taxRate = 0.06;
 		public double GrandTotal { get; set; }
-	
+        public double Tax { get; set; }
+        public double SubTotal { get; set; }
+
 
         public void CalculatingCost()
         {
 
-			
-			double subTotal = 0;
+
 			foreach (Book q in Cart)
 			{
 							
-				subTotal += q.Price * q.Quantity;
-				Console.WriteLine(q.Title);
-				Console.WriteLine(q.Author);
-				Console.WriteLine(q.Price);
-				Console.WriteLine(q.Quantity);			
-			}
-			Console.WriteLine($"Your subtotal is {subTotal}");
+				SubTotal += q.Price * q.Quantity;
+                Console.WriteLine();
+                Console.WriteLine($"Title: { q.Title}");
+                Console.WriteLine($"Author: {q.Author}");
+                Console.WriteLine($"Price: ${q.Price}");
+                Console.WriteLine($"You ordered: {q.Quantity}");
+                Console.WriteLine();
+                Console.WriteLine("--------------------------------");
+            }
+			Console.WriteLine($"Your subtotal is {SubTotal}");
 
-			double tax = subTotal * taxRate;
-			GrandTotal = subTotal + tax;
+			double tax = SubTotal * taxRate;
+			GrandTotal = SubTotal + tax;
 			
 		}
 
@@ -52,12 +56,12 @@ namespace midtermBookStorePOS
 				}
 				else if (paymentChoice == "card")
 				{
-					PaymentValidation.Credit();
+					PaymentValidation.Credit(grandTotal);
 					paymentReturn = false;
 				}
 				else if (paymentChoice == "check")
 				{
-					PaymentValidation.Check();
+					PaymentValidation.Check(grandTotal);
 					paymentReturn = false;
 					
 				}

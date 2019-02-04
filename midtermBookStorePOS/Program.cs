@@ -17,7 +17,7 @@ namespace midtermBookStorePOS
             {
                 checkout = DisplayMenu(checkout);
                 checkout.PaymentChoice(checkout.GrandTotal);
-                PrintReceipt(checkout);
+                PrintReceipt(checkout, checkout.GrandTotal, checkout.Tax, checkout.SubTotal);
                 bool isValid = true;
                 while (isValid == true)
                 {
@@ -95,26 +95,32 @@ namespace midtermBookStorePOS
                     c.Cart.Add(Books[userNumSelectMenu - 1]);
                     c.Cart[c.Cart.Count - 1].Quantity = int.Parse(Console.ReadLine());
 
-                    c.CalculatingCost();
+                    
                 }
                 else
                 {
                     Console.WriteLine("That's not between 1-12. Try Again.");
                 }
-                toMenu = backToMenu(Books, num);
+                toMenu = backToMenu(Books, num, c);
 
             }
             return c;
         }
-        public static void PrintReceipt(Checkout c)
+        public static void PrintReceipt(Checkout c, double gt, double tax, double st)
         {
             foreach (Book b in c.Cart)
             {
                 Console.WriteLine(b.Title + " " + b.Author + " " + b.Price + " " + b.Quantity);
             }
+            Console.WriteLine("\n");
+            tax = c.GrandTotal - c.SubTotal;
+            Console.WriteLine($"Subtotal: {c.SubTotal}");
+            Console.WriteLine($"Tax: {Math.Round(tax, 2)}");
+            Console.WriteLine($"Grand Total: {Math.Round(c.GrandTotal, 2)}");
+            Console.WriteLine("Thank you for shopping at ConsoleReadLine(YourBooks)");
 
         }
-        public static bool backToMenu(List<Book> Books, int num)
+        public static bool backToMenu(List<Book> Books, int num, Checkout c)
         {
             Console.WriteLine("\nWould you like to return to the Menu or proceed to Checkout?(Menu or Checkout)");
             string input = Console.ReadLine().ToLower();
@@ -132,11 +138,12 @@ namespace midtermBookStorePOS
             else if (input == "checkout")
             {
                 goOn = false;
+                c.CalculatingCost();
             }
             else
             {
                 Console.WriteLine("I don't understand that, let's try again");
-                goOn = backToMenu(Books, num);
+                goOn = backToMenu(Books, num, c);
             }
             return goOn;
         }
