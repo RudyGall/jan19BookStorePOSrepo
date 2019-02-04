@@ -25,9 +25,7 @@ namespace midtermBookStorePOS
 
         public static void Credit()
         {
-            bool isAllValid = true;
-            while (isAllValid == true)
-            {
+            
                 // Validating card number---------------------------------------
                 Console.WriteLine("Enter your credit card number");
                 bool cardValidator = true;
@@ -76,9 +74,7 @@ namespace midtermBookStorePOS
 						
 					}
 				}
-				
-			}
-            isAllValid = false;
+
         }
         public static void Check()
         {
