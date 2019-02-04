@@ -93,21 +93,38 @@ namespace midtermBookStorePOS
                 int.TryParse(Console.ReadLine(), out int userNumSelectMenu);
                 if (userNumSelectMenu > 0 && userNumSelectMenu <= Books.Count)
                 {
+
                     Console.WriteLine("Title: " + Books[userNumSelectMenu - 1].Title);
                     Console.WriteLine("Author: " + Books[userNumSelectMenu - 1].Author);
                     Console.WriteLine("$" + Books[userNumSelectMenu - 1].Price);
-                    Console.WriteLine("Please input the amount of books you'd like to order.");
                     c.Cart.Add(Books[userNumSelectMenu - 1]);
-                    c.Cart[c.Cart.Count - 1].Quantity = int.Parse(Console.ReadLine());
+                    bool isValid = true;
+                    while (isValid == true)
+                    {
 
-                    
+                        bool getQuantity = true;
+                        while (getQuantity == true)
+                        {
+                            Console.WriteLine("Please input the amount of books you'd like to order.");
+                            int.TryParse(Console.ReadLine(), out int quantityValidate);
+                            if (quantityValidate <= 0)
+                            {
+                                Console.WriteLine("Wrong input!");
+                                getQuantity = true;
+                                isValid = true;
+                            }
+                            else
+                            {
+                                c.Cart[c.Cart.Count - 1].Quantity = quantityValidate;
+                                getQuantity = false;
+                                isValid = false;
+                            }
+                            
+                        }
+                        toMenu = backToMenu(Books, num, c);
+                    }
                 }
-                else
-                {
-                    Console.WriteLine("That's not between 1-12. Try Again.");
-                }
-                toMenu = backToMenu(Books, num, c);
-
+                
             }
             return c;
         }
