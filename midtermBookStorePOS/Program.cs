@@ -26,6 +26,11 @@ namespace midtermBookStorePOS
                     string inputYorN = Console.ReadLine().ToLower();
                     if (inputYorN == "y")
                     {
+                        checkout.Cart.Clear();
+                        checkout.GrandTotal = 0;
+                        checkout.Tax = 0;
+                        checkout.SubTotal = 0;
+                        Console.Clear();
                         finalAnswer = true;
                         isValid = false;
                     }
@@ -112,7 +117,6 @@ namespace midtermBookStorePOS
             {
                 Console.WriteLine(b.Title + " " + b.Author + " " + b.Price + " " + b.Quantity);
             }
-            Console.WriteLine("\n");
             tax = c.GrandTotal - c.SubTotal;
             Console.WriteLine($"Subtotal: {c.SubTotal}");
             Console.WriteLine($"Tax: {Math.Round(tax, 2)}");
