@@ -132,7 +132,9 @@ namespace midtermBookStorePOS
         {
             foreach (Book b in c.Cart)
             {
-                Console.WriteLine(b.Title + " " + b.Author + " " + b.Price + " " + b.Quantity);
+                Console.WriteLine($"Title: {b.Title} \t\t{b.Quantity} books at ${b.Price}");
+                Console.WriteLine($"	By {b.Author}");
+                Console.WriteLine();               
             }
             tax = c.GrandTotal - c.SubTotal;
             Console.WriteLine($"Subtotal: {c.SubTotal}");
